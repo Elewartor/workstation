@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+{% block content %}
+
+    {% for unit in units %}
+        <p>{{ unit.title }}</p>
+        <p>{{ unit.upc }}</p>
+        <p>{{ unit.part_number }}</p>
+        <img src="{{ unit.image_url }}" alt="">
+        <form action="{% url 'print' %}" method="GET" >
+            <button type="submit" name='pk' value="{{ unit.pk }}">Print</button>
+        </form>
+        <hr>
+    {% endfor %}
+
+{% endblock content %}

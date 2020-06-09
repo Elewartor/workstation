@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intent Workstation</title>
+</head>
+<header>
+    {% if user.is_authenticated %}
+        <p>
+            {{ user.username }} <a href="{% url 'logout' %}">logout</a>
+            <form action="">
+                <input type="search" placeholder="Search">
+            </form>
+        </p>
+        <hr>
+    {% endif %}
+</header>
+<body>
+    {% block content %}
+    
+    {% endblock content %}
+</body>
+</html>
