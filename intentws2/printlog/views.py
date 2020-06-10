@@ -67,14 +67,14 @@ def print_extraboxlabel_view(request):
             unit = Unit.objects.get(pk=pk)
             user = request.user
             qty = request.POST.get('qty')
-            extra = request.POST.get('label_id')
+            extra = request.POST.get('extra')
             model = unit.title
             upc = unit.upc
             copies = request.POST.get('copies')
-            label_type = 'BLL'
+            label_type = 'EBL'
             print_log = PrintLog(user=user, unit=unit, copies_printed=copies, label_type=label_type)
             print_log.save()
-            command = 'boxlabelextra' + " " + '"' + copies + '"' + " " + '"' + upc + '"' + " " + '"' + qty + '"' + " " + '"' + extra + '"' + " " + '"' + model + '"'  + " " + '"' + str(print_log.pk) + '"'
+            command = 'boxlabelextra.py' + " " + '"' + copies + '"' + " " + '"' + upc + '"' + " " + '"' + qty + '"' + " " + '"' + extra + '"' + " " + '"' + model + '"'  + " " + '"' + str(print_log.pk) + '"'
             os.system(command)
             
 
