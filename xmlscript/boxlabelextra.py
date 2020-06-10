@@ -10,8 +10,7 @@ upc = sys.argv[2]
 qty = sys.argv[3]
 extra = sys.argv[4]
 model = sys.argv[5]
-
-print(copies, qty, extra, model, upc,)
+label_id = sys.argv[6]
 # --------------------------------
 
 #XML data parsing.
@@ -29,6 +28,8 @@ rootPrint.find('NamedSubString/[@Name="qty"]').find('Value').text = str(qty)
 rootPrint.find('NamedSubString/[@Name="extra"]').find('Value').text = str(extra)
 #Setting label model.
 rootPrint.find('NamedSubString/[@Name="model"]').find('Value').text = str(model)
+#Setting label id.
+rootPrint.find('NamedSubString/[@Name="label_id"]').find('Value').text = str(label_id)
 
 #Modifying XML file.
 parsedData.write('C:\\Users\\IntentRefurbish\\Desktop\\workstation\\workstation\\xmlscript\\boxlabelextra.xml')

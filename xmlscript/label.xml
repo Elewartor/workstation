@@ -13,6 +13,9 @@
 			</NamedSubString> 
 			<NamedSubString Name="title"> 
 				<Value>Logitech - G Pro</Value>
+			</NamedSubString>
+			<NamedSubString Name="label_id"> 
+				<Value>none</Value>
 			</NamedSubString> 
 		</Print> 
 	</Command> 

@@ -7,11 +7,30 @@
     <p>{{ unit.part_number }}</p>
     <img src="{{ unit.image_url }}" alt="">
     <hr>
+    <h2>Print Logitech Label</h2>
+    <form action="{% url 'print_label' %}" method="POST">{% csrf_token %}
+        <input type="text" name="title" value="{{ unit.title }}" readonly>
+        <input type="text" name="upc" value="{{ unit.upc }}" readonly>
+        <input type="text" name="part_number" value="{{ unit.part_number }}" readonly>
+        Copies:<input type="number" name=copies value="1" step="1" min="1" max="99">
+        <button type="submit" name="pk" value="{{ unit.pk }}">Print Logitech Label</button>
+    </form>
     <h2>Print Box Label</h2>
     <form action="{% url 'print_boxlabel' %}" method="POST">{% csrf_token %}
         <input type="text" name=title value="{{ unit.title }}" readonly>
         <input type="text" name=upc value="{{ unit.upc }}" readonly>
         QTY:<input type="number" name=qty value="1" step="1" min="1" max="99">
+        Copies:<input type="number" name=copies value="1" step="1" min="1" max="99">
+        <button type="submit" name="pk" value="{{ unit.pk }}">Print Box Label</button>
+    </form>
+    <h2>Print Extra Label</h2>
+    <form action="{% url 'print_extraboxlabel' %}" method="POST">{% csrf_token %}
+        <input type="text" name="title" value="{{ unit.title }}" readonly>
+        <input type="text" name="upc" value="{{ unit.upc }}" readonly>
+        QTY:<input type="number" name="qty" value="1" step="1" min="1" max="99">
+        <input type="radio" name="extra" value="SCRAP">SCRAP
+        <input type="radio" name="extra" value="NO USB">NO USB
+        <input type="radio" name="extra" value="NO MOUSE">NO MOUSE
         Copies:<input type="number" name=copies value="1" step="1" min="1" max="99">
         <button type="submit" name="pk" value="{{ unit.pk }}">Print Box Label</button>
     </form>

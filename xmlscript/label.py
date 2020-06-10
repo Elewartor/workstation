@@ -9,6 +9,7 @@ copies = sys.argv[1]
 upc = sys.argv[2]
 part_number = sys.argv[3]
 title = sys.argv[4]
+label_id = sys.argv[5]
 
 # --------------------------------
 
@@ -25,6 +26,8 @@ rootPrint.find('NamedSubString/[@Name="upc"]').find('Value').text = str(upc)
 rootPrint.find('NamedSubString/[@Name="part_number"]').find('Value').text = str(part_number)
 #Setting label model.
 rootPrint.find('NamedSubString/[@Name="title"]').find('Value').text = str(title)
+#Setting label id.
+rootPrint.find('NamedSubString/[@Name="label_id"]').find('Value').text = str(label_id)
 
 #Modifying XML file.
 parsedData.write('C:\\Users\\IntentRefurbish\\Desktop\\workstation\\workstation\\xmlscript\\label.xml')

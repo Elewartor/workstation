@@ -13,10 +13,13 @@
 			</NamedSubString> 
 			<NamedSubString Name="extra"> 
 				<Value>SCRAP</Value>
-			</NamedSubString> 
+			</NamedSubString>
 			<NamedSubString Name="model"> 
 				<Value>Logitech - G Pro</Value>
-			</NamedSubString> 
+			</NamedSubString>
+			<NamedSubString Name="label_id"> 
+				<Value>none</Value>
+			</NamedSubString>
 		</Print> 
 	</Command> 
 </XMLScript>
