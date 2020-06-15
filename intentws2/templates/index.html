@@ -12,7 +12,7 @@
             {% if user.is_staff %}
                 <a href="{% url 'create_unit' %}">create</a>
             {% endif %}
-            <form action="{% url 'home' %}">
+            <form action="{% url 'home' %}" autocomplete="off">
                 <input type="search" name="q" placeholder="Search">
             </form>
         </p>
