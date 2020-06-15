@@ -5,7 +5,7 @@
     <p>{{ unit.title }}</p>
     <p>{{ unit.upc }}</p>
     <p>{{ unit.part_number }}</p>
-    <img src="{{ unit.image_url }}" alt="">
+    <img src="{{ unit.image_url }}" width="300" height="200" alt="">
     <hr>
     <h2>Print Logitech Label</h2>
     <form action="{% url 'print_label' %}" method="POST">{% csrf_token %}
@@ -31,6 +31,7 @@
         <input type="radio" name="extra" value="SCRAP" checked>SCRAP
         <input type="radio" name="extra" value="NO USB">NO USB
         <input type="radio" name="extra" value="NO MOUSE">NO MOUSE
+	<input type="radio" name="extra" value="NO MUSB">NO MUSB
         Copies:<input type="number" name=copies value="1" step="1" min="1" max="99">
         <button type="submit" name="pk" value="{{ unit.pk }}">Print Box Label</button>
     </form>

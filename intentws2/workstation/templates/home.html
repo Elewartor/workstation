@@ -5,7 +5,7 @@
         <p>{{ unit.title }}</p>
         <p>{{ unit.upc }}</p>
         <p>{{ unit.part_number }}</p>
-        <img src="{{ unit.image_url }}" alt="">
+        <img src="{{ unit.image_url }}" width="300" height="200" alt="">
         <form action="{% url 'print' %}" method="GET" >
             <button type="submit" name='pk' value="{{ unit.pk }}">Print</button>
         </form>
