@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from workstation.models import Unit
 from django.db.models import Q
+from workstation.forms import UnitCreateForm
 
 # Create your views here.
 
@@ -35,3 +36,22 @@ def get_units_queryset(query=None):
         for unit in units:
             queryset.append(unit)
     return list(set(queryset))
+
+def create_unit_view(request):
+    context = {}
+
+    user = request.user
+    if user.is_authenticated and user.is_staff:
+        form = UnitCreateForm(request.POST or None)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            author = user
+            obj.author = author
+            obj.save()
+            form = UnitCreateForm()
+            context['form'] = form
+            return render(request, 'add_unit.html', context)
+        else:
+            return render(request, 'add_unit.html', context)
+    else:
+        return redirect('home')
