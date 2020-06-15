@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<form method="post">{% csrf_token %}
+
+    <!-- title -->
+        <label for="id_title">Title</label>
+        <input type="text" name="title" id="id_title" placeholder="Title" required autofocus>
+
+    <!-- upc -->
+        <label for="id_upc">UPC</label>
+        <input type="text" name="upc" id="id_upc" placeholder="UPC" required>
+
+    <!-- part_number -->
+        <label for="part_number">Part number</label>
+        <input  type="text" name="part_number" id="part_number" required>
+    
+    <!-- image_url -->
+        <label for="image_url">Image url</label>
+        <input  type="text" name="image_url" id="image_url" required>
+
+    <button type="submit">Create</button>
+</form>	
+
+{% endblock content %}

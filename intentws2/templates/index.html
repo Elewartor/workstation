@@ -9,6 +9,9 @@
     {% if user.is_authenticated %}
         <p>
             {{ user.username }} <a href="{% url 'logout' %}">logout</a>
+            {% if user.is_staff %}
+                <a href="{% url 'create_unit' %}">create</a>
+            {% endif %}
             <form action="{% url 'home' %}">
                 <input type="search" name="q" placeholder="Search">
             </form>
