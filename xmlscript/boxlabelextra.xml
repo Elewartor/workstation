@@ -6,19 +6,19 @@
 				<IdenticalCopiesOfLabel>1</IdenticalCopiesOfLabel>
 			</PrintSetup>
 			<NamedSubString Name="upc"> 
-				<Value>097855066701</Value>
+				<Value>097855135285</Value>
 			</NamedSubString> 
 			<NamedSubString Name="qty"> 
-				<Value>5</Value>
+				<Value>1</Value>
 			</NamedSubString> 
 			<NamedSubString Name="extra"> 
-				<Value>SCRAP</Value>
+				<Value>NO USB</Value>
 			</NamedSubString>
 			<NamedSubString Name="model"> 
-				<Value>Logitech - MK550</Value>
+				<Value>Logitech - G613</Value>
 			</NamedSubString>
 			<NamedSubString Name="label_id"> 
-				<Value>159</Value>
+				<Value>198</Value>
 			</NamedSubString>
 		</Print> 
 	</Command> 
