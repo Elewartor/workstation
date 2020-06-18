@@ -1,29 +1,44 @@
 {% extends 'index.html' %}
 {% block content %}
-
-<form method="post" autocomplete="off">{% csrf_token %}
-
-    <!-- title -->
-        <label for="id_title">Title</label>
-        <input type="text" name="title" id="id_title" placeholder="Title" required autofocus>
-
-    <!-- upc -->
-        <label for="id_upc">UPC</label>
-        <input type="text" name="upc" id="id_upc" placeholder="UPC" required>
-
-    <!-- part_number -->
-        <label for="part_number">Part number</label>
-        <input  type="text" name="part_number" id="part_number" required>
-
-    <!-- image_url -->
-        <label for="details">Details</label>
-        <textarea name="details" id="details" cols="50" rows="20"></textarea>
-    
-    <!-- image_url -->
-        <label for="image_url">Image url</label>
-        <input  type="text" name="image_url" id="image_url" required>
-
-    <button type="submit">Create</button>
-</form>	
-
+<div class="container" style="padding-top: 70px;">
+    {% if success_massage %}
+    <div class="card">
+        <h5 class="card-header">{{success_massage}}</h5>
+        <div class="card-body">
+            <p class="card-text">Unit was created success</p>
+            <a href="{% url 'print' %}?pk={{unit.pk}}" class="btn btn-primary">Watch result</a>
+            <a href="{% url 'home' %}" class="btn btn-primary">Go Home</a>
+        </div>
+    </div>
+    <br>
+	{% endif %}
+    <form method="post" autocomplete="off">{% csrf_token %}
+        <!-- title -->
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Title" required autofocus>
+        </div>
+        <!-- upc -->
+        <div class="form-group">
+            <label for="upc">UPC</label>
+            <input type="text" class="form-control" id="upc" name="upc" placeholder="UPC" required>
+        </div>
+        <!-- part_number -->
+        <div class="form-group">
+            <label for="part_number">Part Number:</label>
+            <input type="text" class="form-control" id="part_number" name="part_number" placeholder="P/N" required>
+        </div>
+        <!-- details -->
+        <div class="form-group">
+            <label for="details">Details</label>
+            <textarea class="form-control" name="details" id="details" rows="3"><li class='list-group-item'><b>Name: </b>Value</li></textarea>
+        </div>
+        <!-- image_url -->
+        <div class="form-group">
+            <label for="image_url">Image URL</label>
+            <input type="text" class="form-control" id="image_url" name="image_url" placeholder="Image URL" required>
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Create</button>
+    </form>
+</div>
 {% endblock content %}

@@ -1,21 +1,8 @@
 {% extends 'index.html' %}
 {% block content %}
-<div class="container">
+<div class="container" style="padding-top: 70px;">
     <div class="row justify-content-start">
     {% for unit in units %}
-        <!-- <p>{{ unit.title }}</p>
-        <p>{{ unit.upc }}</p>
-        <p>{{ unit.part_number }}</p>
-        <img src="{{ unit.image_url }}" width="300" height="200" alt="">
-        <div>
-            <ul>
-                {{ unit.details|safe }}
-            </ul>
-        </div>
-        <form action="{% url 'print' %}" method="GET" >
-            <button type="submit" name='pk' value="{{ unit.pk }}">Print</button>
-        </form>
-        <hr> -->
         <div class="col-4">
             <div class="card" style="width: 50rem;">
                 <img class="card-img-top" src="{{ unit.image_url }}" alt="{{ unit.title }}">
@@ -34,15 +21,25 @@
                     </div>
                 </ul>
                 <div class="card-body">
+                  <div class="d-flex justify-content-between">
                     <form action="{% url 'print' %}" method="GET" >
                         <button class="btn btn-primary" type="submit" name='pk' value="{{ unit.pk }}">Print</button>
                         <a class="card-link" data-toggle="collapse" href="#{{ unit.pk }}" role="button" aria-expanded="false" aria-controls="{{ unit.pk }}">Details</a>
                     </form>
+                    {% if user.is_staff %}
+                    <form action="{% url 'edit_unit' %}" method="GET" >
+                      <button class="btn btn-danger float-right" type="submit" name='pk' value="{{ unit.pk }}">Edit</button>
+                    </form>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted float-right">Created by {{ unit.author }}</small>
                 </div>
             </div>
         </div>
             {% if forloop.counter|divisibleby:"1" %}
-                </div><br><div class="row justify-content-start">
+              </div><br><div class="row justify-content-start">
             {% endif %}
     {% endfor %}
 </div>

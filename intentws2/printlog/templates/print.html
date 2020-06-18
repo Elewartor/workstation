@@ -1,40 +1,157 @@
 {% extends 'index.html' %}
 {% block content %}
-
-    <h1>Print</h1>
-    <p>{{ unit.title }}</p>
-    <p>{{ unit.upc }}</p>
-    <p>{{ unit.part_number }}</p>
-    <img src="{{ unit.image_url }}" width="300" height="200" alt="">
-    <hr>
-    <h2>Print Logitech Label</h2>
-    <form action="{% url 'print_label' %}" method="POST" autocomplete="off">{% csrf_token %}
-        <input type="text" name="title" value="{{ unit.title }}" readonly>
-        <input type="text" name="upc" value="{{ unit.upc }}" readonly>
-        <input type="text" name="part_number" value="{{ unit.part_number }}" readonly>
-        Copies:<input type="number" name=copies value="1" step="1" min="1" max="99">
-        <button type="submit" name="pk" value="{{ unit.pk }}">Print Logitech Label</button>
-    </form>
-    <h2>Print Box Label</h2>
-    <form action="{% url 'print_boxlabel' %}" method="POST" autocomplete="off">{% csrf_token %}
-        <input type="text" name=title value="{{ unit.title }}" readonly>
-        <input type="text" name=upc value="{{ unit.upc }}" readonly>
-        QTY:<input type="number" name=qty value="1" step="1" min="1" max="99">
-        Copies:<input type="number" name=copies value="1" step="1" min="1" max="99">
-        <button type="submit" name="pk" value="{{ unit.pk }}">Print Box Label</button>
-    </form>
-    <h2>Print Extra Label</h2>
-    <form action="{% url 'print_extraboxlabel' %}" method="POST" autocomplete="off">{% csrf_token %}
-        <input type="text" name="title" value="{{ unit.title }}" readonly>
-        <input type="text" name="upc" value="{{ unit.upc }}" readonly>
-        QTY:<input type="number" name="qty" value="1" step="1" min="1" max="99">
-        <input type="radio" name="extra" value="SCRAP" checked>SCRAP
-        <input type="radio" name="extra" value="NO USB">NO USB
-        <input type="radio" name="extra" value="NO MOUSE">NO MOUSE
-	<input type="radio" name="extra" value="NO MUSB">NO MUSB
-        Copies:<input type="number" name=copies value="1" step="1" min="1" max="99">
-        <button type="submit" name="pk" value="{{ unit.pk }}">Print Box Label</button>
-    </form>
-
-
+<div class="container" style="padding-top: 70px;">
+    <div class="row">
+        <div class="col-sm">
+            <div class="card mb-3">
+                <img class="card-img-top" src="{{ unit.image_url }}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{ unit.title }}</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>UPC: </b>{{ unit.upc }}</li>
+                    <li class="list-group-item"><b>P/N: </b>{{ unit.part_number }}</li>
+                    {{ unit.details|safe }}
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Print Logitech Label
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <!-- Print Logitech Label -->
+                            <h5 class="card-title">Print Logitech Label</h5>
+                            <form action="{% url 'print_label' %}" method="POST" autocomplete="off">{% csrf_token %}
+                                <!-- title -->
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="form-control" id="title" name="title" value="{{ unit.title }}" readonly>
+                                </div>
+                                <!-- upc -->
+                                <div class="form-group">
+                                    <label for="upc">UPC</label>
+                                    <input type="text" class="form-control" id="upc" name="upc" value="{{ unit.upc }}" readonly>
+                                </div>
+                                <!-- part_number -->
+                                <div class="form-group">
+                                    <label for="part_number">Part Number</label>
+                                    <input type="text" class="form-control" id="part_number" name="part_number" value="{{ unit.part_number }}" readonly>
+                                </div>
+                                <!-- copies -->
+                                <div class="form-group">
+                                    <label for="copies">Copies</label>
+                                    <input type="number" class="form-control" id="copies" name=copies value="1" step="1" min="1" max="99">
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-2" name="pk" value="{{ unit.pk }}">Print Logitech Label</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Print Box Label
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                            <!-- Print Box Label -->
+                            <h5 class="card-title">Print Box Label</h5>
+                            <form action="{% url 'print_boxlabel' %}" method="POST" autocomplete="off">{% csrf_token %}
+                                <!-- title -->
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="form-control" id="title" name="title" value="{{ unit.title }}" readonly>
+                                </div>
+                                <!-- upc -->
+                                <div class="form-group">
+                                    <label for="upc">UPC</label>
+                                    <input type="text" class="form-control" id="upc" name="upc" value="{{ unit.upc }}" readonly>
+                                </div>
+                                <!-- qty -->
+                                <div class="form-group">
+                                    <label for="qty">QTY</label>
+                                    <input type="number" class="form-control" id="qty" name="qty" value="1" step="1" min="1" max="99">
+                                </div>
+                                <!-- copies -->
+                                <div class="form-group">
+                                    <label for="copies">Copies</label>
+                                    <input type="number" class="form-control" id="copies" name=copies value="1" step="1" min="1" max="99">
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-2" name="pk" value="{{ unit.pk }}">Print Box Label</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Print Extra Box Label
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body">
+                            <!-- Extraboxlabel -->
+                            <h5 class="card-title">Print Extra Box Label</h5>
+                            <form action="{% url 'print_extraboxlabel' %}" method="POST" autocomplete="off">{% csrf_token %}
+                                <!-- title -->
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="form-control" id="title" name="title" value="{{ unit.title }}" readonly>
+                                </div>
+                                <!-- upc -->
+                                <div class="form-group">
+                                    <label for="upc">UPC</label>
+                                    <input type="text" class="form-control" id="upc" name="upc" value="{{ unit.upc }}" readonly>
+                                </div>
+                                <!-- qty -->
+                                <div class="form-group">
+                                    <label for="qty">QTY</label>
+                                    <input type="number" class="form-control" id="qty" name="qty" value="1" step="1" min="1" max="99">
+                                </div>
+                                <!-- extra -->
+                                <div class="form-group">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="extra" id="extra" value="SCRAP" checked>
+                                        <label class="form-check-label" for="extra">SCRAP</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="extra" id="extra" value="NO USB">
+                                        <label class="form-check-label" for="extra">NO USB</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="extra" id="extra" value="NO MOUSE">
+                                        <label class="form-check-label" for="extra">NO MOUSE</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="extra" id="extra" value="NO MUSB">
+                                        <label class="form-check-label" for="extra">NO MUSB</label>
+                                    </div>
+                                </div>
+                                <!-- copies -->
+                                <div class="form-group">
+                                    <label for="copies">Copies</label>
+                                    <input type="number" class="form-control" id="copies" name=copies value="1" step="1" min="1" max="99">
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-2" name="pk" value="{{ unit.pk }}">Print Extra Box Label</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}
