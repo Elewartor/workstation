@@ -12,7 +12,8 @@ def print_view(request):
             pk = request.GET.get('pk')
             unit = Unit.objects.get(pk=pk)
             context['unit'] = unit
-            return render(request, 'print.html', context)
+
+        return render(request, 'print.html', context)
     else:
         return redirect('home')
 
@@ -31,9 +32,7 @@ def print_boxlabel_view(request):
             print_log.save()
             command = 'boxlabel.py' + " " + '"' + copies + '"' + " " + '"' + upc + '"' + " " + '"' + qty + '"' + " " + '"' + model + '"'  + " " + '"' + str(print_log.pk) + '"'
             os.system(command)
-            
 
-            
             return redirect('home')
     else:
         return redirect('home')

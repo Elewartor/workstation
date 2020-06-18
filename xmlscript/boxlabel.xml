@@ -3,19 +3,19 @@
 		<Print> 
 			<Format>C:\Users\IntentRefurbish\Desktop\workstation\workstation\xmlscript\boxlabel.btw</Format>
 			<PrintSetup>
-				<IdenticalCopiesOfLabel>1</IdenticalCopiesOfLabel>
+				<IdenticalCopiesOfLabel>4</IdenticalCopiesOfLabel>
 			</PrintSetup>
 			<NamedSubString Name="upc"> 
-				<Value>097855107879</Value>
+				<Value>097855138996</Value>
 			</NamedSubString> 
 			<NamedSubString Name="qty"> 
-				<Value>5</Value>
+				<Value>26</Value>
 			</NamedSubString> 
 			<NamedSubString Name="model"> 
-				<Value>Logitech - MK345</Value>
+				<Value>Logitech - MK270</Value>
 			</NamedSubString>
 			<NamedSubString Name="employee_id"> 
-				<Value>215</Value>
+				<Value>224</Value>
 			</NamedSubString> 
 		</Print> 
 	</Command> 

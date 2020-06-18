@@ -9,19 +9,19 @@ class UnitCreateForm(forms.ModelForm):
         model = Unit
         fields = ('title', 'upc', 'part_number', 'details', 'image_url')
 
-    def clean_details(self):
-        string = self.cleaned_data['details']
-        
-        if string[-1]==';':
-            string = string[:-1]
-        result = ""
-        splited = string.replace("; ", ";").split(";")
-        for line in splited:
-            splited_line = line.split(": ")
-            name = splited_line[0]
-            value = splited_line[1]
-            result = result + "<li class='list-group-item'>" + "<b>" + name + ": </b>" + value + "</li>"     
-        
-        return result
+class UnitEditForm(forms.ModelForm):
+    class Meta:
+        model = Unit
+        fields = ('title', 'upc', 'part_number', 'details', 'image_url')
 
-        
+    def save(self, commit=True):
+        unit = self.instance
+        unit.title = self.cleaned_data['title']
+        unit.upc = self.cleaned_data['upc']
+        unit.part_number = self.cleaned_data['part_number']
+        unit.details = self.cleaned_data['details']
+        unit.image_url = self.cleaned_data['image_url']
+
+        if commit:
+            unit.save()
+        return unit
