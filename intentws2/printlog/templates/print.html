@@ -1,6 +1,16 @@
 {% extends 'index.html' %}
 {% block content %}
 <div class="container" style="padding-top: 70px;">
+    {% if result_massage %}
+        <div class="card">
+            <h5 class="card-header">{{result_massage}}</h5>
+            <div class="card-body">
+                <p class="card-text">Sticker was printed successfully. Print another label or press Go Home</p>
+                <a href="{% url 'home' %}" class="btn btn-primary">Go Home</a>
+            </div>
+        </div>
+        <br>
+    {% endif %}
     <div class="row">
         <div class="col-sm">
             <div class="card mb-3">
@@ -25,11 +35,12 @@
                             </button>
                         </h5>
                     </div>
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div id="collapseOne" class="collapse {% if toggle == 'lll' %}show{% endif %}" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
                             <!-- Print Logitech Label -->
                             <h5 class="card-title">Print Logitech Label</h5>
-                            <form action="{% url 'print_label' %}" method="POST" autocomplete="off">{% csrf_token %}
+                            <form action="{% url 'print' %}?pk={{unit.pk}}" method="POST" autocomplete="off">{% csrf_token %}
+                                <input type="hidden" name="label" value="unit_label">
                                 <!-- title -->
                                 <div class="form-group">
                                     <label for="title">Title</label>
@@ -63,11 +74,12 @@
                             </button>
                         </h5>
                     </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div id="collapseTwo" class="collapse {% if toggle == 'bll' %}show{% endif %}" aria-labelledby="headingTwo" data-parent="#accordion">
                         <div class="card-body">
                             <!-- Print Box Label -->
                             <h5 class="card-title">Print Box Label</h5>
-                            <form action="{% url 'print_boxlabel' %}" method="POST" autocomplete="off">{% csrf_token %}
+                            <form action="{% url 'print' %}?pk={{unit.pk}}" method="POST" autocomplete="off">{% csrf_token %}
+                                <input type="hidden" name="label" value="box_label">
                                 <!-- title -->
                                 <div class="form-group">
                                     <label for="title">Title</label>
@@ -101,11 +113,12 @@
                             </button>
                         </h5>
                     </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div id="collapseThree" class="collapse {% if toggle == 'ebl' %}show{% endif %}" aria-labelledby="headingThree" data-parent="#accordion">
                         <div class="card-body">
                             <!-- Extraboxlabel -->
                             <h5 class="card-title">Print Extra Box Label</h5>
-                            <form action="{% url 'print_extraboxlabel' %}" method="POST" autocomplete="off">{% csrf_token %}
+                            <form action="{% url 'print' %}?pk={{unit.pk}}" method="POST" autocomplete="off">{% csrf_token %}
+                                <input type="hidden" name="label" value="extra_box_label">
                                 <!-- title -->
                                 <div class="form-group">
                                     <label for="title">Title</label>
