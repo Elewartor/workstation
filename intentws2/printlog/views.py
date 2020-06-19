@@ -7,77 +7,76 @@ import os
 
 def print_view(request):
     context = {}
-    if request.user.is_authenticated:
+    user = request.user
+    if user.is_authenticated:
         if request.GET:
             pk = request.GET.get('pk')
             unit = Unit.objects.get(pk=pk)
             context['unit'] = unit
+            context['toggle'] = 'lll'
+        if request.POST:
+            if 'box_label' in request.POST['label']:
+                pk = request.POST.get('pk')
+                unit = Unit.objects.get(pk=pk)
+                qty = request.POST.get('qty')
+                copies = request.POST.get('copies')
+                context['result_massage'] = print_boxlabel(user, unit, qty, copies)
+                context['toggle'] = 'bll'
+                context['unit'] = unit
+                
+            if 'unit_label' in request.POST['label']:
+                pk = request.POST.get('pk')
+                unit = Unit.objects.get(pk=pk)
+                copies = request.POST.get('copies')
+                context['result_massage'] = print_label(user, unit, copies)
+                context['toggle'] = 'lll'
+                context['unit'] = unit
+
+            if 'extra_box_label' in request.POST['label']:
+                pk = request.POST.get('pk')
+                unit = Unit.objects.get(pk=pk)
+                copies = request.POST.get('copies')
+                qty = request.POST.get('qty')
+                extra = request.POST.get('extra')
+                context['result_massage'] = print_extraboxlabel(user, unit, qty, extra, copies)
+                context['toggle'] = 'ebl'
+                context['unit'] = unit
 
         return render(request, 'print.html', context)
     else:
         return redirect('home')
 
-def print_boxlabel_view(request):
-    if request.user.is_authenticated:
-        if request.POST:
-            pk = request.POST.get('pk')
-            unit = Unit.objects.get(pk=pk)
-            user = request.user
-            qty = request.POST.get('qty')
-            model = unit.title
-            upc = unit.upc
-            copies = request.POST.get('copies')
-            label_type = 'BLL'
-            print_log = PrintLog(user=user, unit=unit, copies_printed=copies, label_type=label_type)
-            print_log.save()
-            command = 'boxlabel.py' + " " + '"' + copies + '"' + " " + '"' + upc + '"' + " " + '"' + qty + '"' + " " + '"' + model + '"'  + " " + '"' + str(print_log.pk) + '"'
-            os.system(command)
+def print_extraboxlabel(user, unit, qty, extra, copies):
+    model = unit.title
+    upc = unit.upc
+    label_type = 'EBL'
+    print_log = PrintLog(user=user, unit=unit, copies_printed=copies, label_type=label_type)
+    print_log.save()
+    command = 'boxlabelextra.py' + " " + '"' + copies + '"' + " " + '"' + upc + '"' + " " + '"' + qty + '"' + " " + '"' + extra + '"' + " " + '"' + model + '"'  + " " + '"' + str(print_log.pk) + '"'
+    os.system(command)
 
-            return redirect('home')
-    else:
-        return redirect('home')
+    return "Extra Box Label"
 
-def print_label_view(request):
-    if request.user.is_authenticated:
-        if request.POST:
-            pk = request.POST.get('pk')
-            unit = Unit.objects.get(pk=pk)
-            user = request.user
-            model = unit.title
-            upc = unit.upc
-            part_number = unit.part_number
-            copies = request.POST.get('copies')
-            label_type = 'LLL'
-            print_log = PrintLog(user=user, unit=unit, copies_printed=copies, label_type=label_type)
-            print_log.save()
-            command = 'label.py' + " " + '"' + copies + '"' + " " + '"' + upc + '"' + " " + '"' + part_number + '"' + " " + '"' + model + '"'  + " " + '"' + str(print_log.pk) + '"'
-            os.system(command)
-            
+def print_boxlabel(user, unit, qty, copies):
+    model = unit.title
+    upc = unit.upc
+    label_type = 'BLL'
+    print_log = PrintLog(user=user, unit=unit, copies_printed=copies, label_type=label_type)
+    print_log.save()
+    command = 'boxlabel.py' + " " + '"' + copies + '"' + " " + '"' + upc + '"' + " " + '"' + qty + '"' + " " + '"' + model + '"'  + " " + '"' + str(print_log.pk) + '"'
+    os.system(command)
 
-            
-            return redirect('home')
-    else:
-        return redirect('home')
+    return "Box Label"
 
-def print_extraboxlabel_view(request):
-    if request.user.is_authenticated:
-        if request.POST:
-            pk = request.POST.get('pk')
-            unit = Unit.objects.get(pk=pk)
-            user = request.user
-            qty = request.POST.get('qty')
-            extra = request.POST.get('extra')
-            model = unit.title
-            upc = unit.upc
-            copies = request.POST.get('copies')
-            label_type = 'EBL'
-            print_log = PrintLog(user=user, unit=unit, copies_printed=copies, label_type=label_type)
-            print_log.save()
-            command = 'boxlabelextra.py' + " " + '"' + copies + '"' + " " + '"' + upc + '"' + " " + '"' + qty + '"' + " " + '"' + extra + '"' + " " + '"' + model + '"'  + " " + '"' + str(print_log.pk) + '"'
-            os.system(command)
-            
+def print_label(user, unit, copies):
+    model = unit.title
+    upc = unit.upc
+    part_number = unit.part_number
+    label_type = 'LLL'
+    print_log = PrintLog(user=user, unit=unit, copies_printed=copies, label_type=label_type)
+    print_log.save()
+    command = 'label.py' + " " + '"' + copies + '"' + " " + '"' + upc + '"' + " " + '"' + part_number + '"' + " " + '"' + model + '"'  + " " + '"' + str(print_log.pk) + '"'
+    os.system(command)
 
-            
-            return redirect('home')
-    else:
-        return redirect('home')
+    return "Unit Label"
+
