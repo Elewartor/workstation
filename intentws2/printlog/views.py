@@ -15,7 +15,7 @@ def print_view(request):
             context['unit'] = unit
             context['toggle'] = 'lll'
         if request.POST:
-            if 'box_label' in request.POST['label']:
+            if 'box_label' == request.POST['label']:
                 pk = request.POST.get('pk')
                 unit = Unit.objects.get(pk=pk)
                 qty = request.POST.get('qty')
@@ -24,7 +24,7 @@ def print_view(request):
                 context['toggle'] = 'bll'
                 context['unit'] = unit
                 
-            if 'unit_label' in request.POST['label']:
+            if 'unit_label' == request.POST['label']:
                 pk = request.POST.get('pk')
                 unit = Unit.objects.get(pk=pk)
                 copies = request.POST.get('copies')
@@ -32,7 +32,7 @@ def print_view(request):
                 context['toggle'] = 'lll'
                 context['unit'] = unit
 
-            if 'extra_box_label' in request.POST['label']:
+            if 'extra_box_label' == request.POST['label']:
                 pk = request.POST.get('pk')
                 unit = Unit.objects.get(pk=pk)
                 copies = request.POST.get('copies')
