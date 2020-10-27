@@ -1,0 +1,13 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="container" style="padding-top: 70px;">
+    <form method="post" autocomplete="off">{% csrf_token %}
+        <!-- title -->
+        <div class="form-group">
+            <label for="title">Category Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Title" required autofocus>
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Create</button>
+    </form>
+</div>
+{% endblock content %}

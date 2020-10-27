@@ -19,6 +19,7 @@
                     <h5 class="card-title">{{ unit.title }}</h5>
                 </div>
                 <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>Category: </b>{{ unit.category }}</li>
                     <li class="list-group-item"><b>UPC: </b>{{ unit.upc }}</li>
                     <li class="list-group-item"><b>P/N: </b>{{ unit.part_number }}</li>
                     {{ unit.details|safe }}

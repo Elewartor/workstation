@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'account',
     'workstation',
     'printlog',
+    'scrapmanager',
 
     'django.contrib.admin',
     'django.contrib.auth',

@@ -14,6 +14,7 @@
                 <h5 class="card-title">{{ unit.title }}</h5>
               </div>
               <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Category: </b>{{ unit.category }}</li>
                 <li class="list-group-item"><b>UPC: </b>{{ unit.upc }}</li>
                 <li class="list-group-item"><b>P/N: </b>{{ unit.part_number }}</li>
                 <div class="collapse multi-collapse" id="{{ unit.pk }}">
@@ -25,16 +26,25 @@
                 </div>
               </ul>
               <div class="card-body">
-                <div class="d-flex justify-content-between">
-                  <form action="{% url 'print' %}" method="GET" >
-                    <button class="btn btn-primary" type="submit" name='pk' value="{{ unit.pk }}">Print</button>
-                    <a class="card-link" data-toggle="collapse" href="#{{ unit.pk }}" role="button" aria-expanded="false" aria-controls="{{ unit.pk }}">Details</a>
-                  </form>
-                  {% if user.is_staff %}
-                  <form action="{% url 'edit_unit' %}" method="GET" >
-                    <button class="btn btn-danger float-right" type="submit" name='pk' value="{{ unit.pk }}">Edit</button>
-                  </form>
-                  {% endif %}
+                <div class="row justify-content-end">
+                  <div class="col">
+                    <form action="{% url 'print' %}" method="GET" >
+                      <button class="btn btn-primary" type="submit" name='pk' value="{{ unit.pk }}">Print</button>
+                      <a class="card-link" data-toggle="collapse" href="#{{ unit.pk }}" role="button" aria-expanded="false" aria-controls="{{ unit.pk }}">Details</a>
+                    </form>
+                  </div>
+                  <div class="col-md-auto">
+                    <form action="{% url 'create_scrap_record' %}" method="GET" >
+                      <button class="btn btn-primary float-right" type="submit" name='pk' value="{{ unit.pk }}">Scrap</button>
+                    </form>
+                  </div>
+                  <div class="col-md-auto">
+                    {% if user.is_staff %}
+                    <form action="{% url 'edit_unit' %}" method="GET" >
+                      <button class="btn btn-danger" type="submit" name='pk' value="{{ unit.pk }}">Edit</button>
+                    </form>
+                    {% endif %}
+                  </div>
                 </div>
               </div>
             </div>

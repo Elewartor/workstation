@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from workstation.models import Unit
+from workstation.models import Unit, Category
 from .models import PrintLog
 import os
 
@@ -7,6 +7,7 @@ import os
 
 def print_view(request):
     context = {}
+    context['categories'] = Category.objects.all()
     user = request.user
     if user.is_authenticated:
         if request.GET:

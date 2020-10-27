@@ -20,5 +20,6 @@ urlpatterns = [
     path('', include('workstation.urls')),
     path('account/', include('account.urls')),
     path('print/', include('printlog.urls')),
+    path('scrap/', include('scrapmanager.urls')),
     path('admin/', admin.site.urls),
 ]

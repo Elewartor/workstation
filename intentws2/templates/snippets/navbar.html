@@ -15,10 +15,13 @@
                     Categories
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">in progress</a>
-                    <a class="dropdown-item" href="#">in progress</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">in progress</a>
+                    {% for category in categories %}
+                      <a class="dropdown-item" href="{% url 'category'%}?category={{category.title}}">{{ category }}</a>
+                    {% endfor %}
+                    {% if user.is_staff %}
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="{% url 'category_create'%}">Create</a>
+                    {% endif %}
                   </div>
                 </li>
 		            {% if user.is_staff %}
@@ -34,6 +37,9 @@
                   </a>
                   <div class="dropdown-menu" aria-labelledby="userDropdown">
                     <a class="dropdown-item disabled" href="">Profile</a>
+                    {% if user.is_staff %}
+                      <a class="dropdown-item disabled" href="{% url 'manager' %}">Scrap Manager</a>
+                    {% endif %}
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" style="color: crimson;" href="{% url 'logout' %}">Log Out</a>
                   </div>

@@ -18,6 +18,15 @@
             <label for="title">Title</label>
             <input type="text" class="form-control" id="title" name="title" placeholder="Title" required autofocus>
         </div>
+        <!-- category -->
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" name='category' class="form-control">
+                {% for category in categories %}
+                <option>{{ category.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
         <!-- upc -->
         <div class="form-group">
             <label for="upc">UPC</label>
