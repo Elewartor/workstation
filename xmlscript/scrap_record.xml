@@ -1,0 +1,13 @@
+<XMLScript Version="2.0" Name="09232006_103601_Job1" ID="123">
+	<Command Name="Job1">
+		<Print> 
+			<Format>C:\Users\IntentRefurbish\Desktop\workstation\workstation\xmlscript\scrap_record_number.btw</Format>
+			<PrintSetup>
+				<IdenticalCopiesOfLabel>1</IdenticalCopiesOfLabel>
+			</PrintSetup>
+			<NamedSubString Name="scrap_record_number"> 
+				<Value>435435</Value>
+			</NamedSubString> 
+		</Print> 
+	</Command> 
+</XMLScript>

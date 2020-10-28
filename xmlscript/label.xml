@@ -3,19 +3,19 @@
 		<Print> 
 			<Format>C:\Users\IntentRefurbish\Desktop\workstation\workstation\xmlscript\logitechlabel.btw</Format>
 			<PrintSetup>
-				<IdenticalCopiesOfLabel>15</IdenticalCopiesOfLabel>
+				<IdenticalCopiesOfLabel>1</IdenticalCopiesOfLabel>
 			</PrintSetup>
 			<NamedSubString Name="upc"> 
-				<Value>097855070098</Value>
+				<Value>097855137319</Value>
 			</NamedSubString> 
 			<NamedSubString Name="part_number"> 
-				<Value>910-001799</Value>
+				<Value>920-008695</Value>
 			</NamedSubString> 
 			<NamedSubString Name="title"> 
-				<Value>Logitech M570</Value>
+				<Value>Logitech - MK545</Value>
 			</NamedSubString>
 			<NamedSubString Name="label_id"> 
-				<Value>811</Value>
+				<Value>817</Value>
 			</NamedSubString> 
 		</Print> 
 	</Command> 
