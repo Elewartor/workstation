@@ -1,54 +1,70 @@
 {% extends 'index.html' %}
 {% block content %}
-    <div class="jumbotron jumbotron-fluid" style="padding-top: 70px;">
-        <div class="container">
-            <p class="lead">Unit: Count</p>
+<div class="container-fluid" style="padding-top: 70px;">
+    <div class="row">
+        <div class="col-9">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="center; vertical-align: middle;" scope="col">RecID</th>
+                        <th style="center; vertical-align: middle;" scope="col">Unit</th>
+                        <th style="center; vertical-align: middle;" scope="col">Author</th>
+                        <th style="center; vertical-align: middle;" scope="col">Location</th>
+                        <th style="center; vertical-align: middle;" scope="col">Date Created</th>
+                        <th style="center; vertical-align: middle;" scope="col"colspan="2">
+                            <form class="form-inline" method="GET" action="{% url 'manager' %}">
+                                <input class="form-control" name="scrap_search" type="search" placeholder="Search" aria-label="Search">
+                            </form>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in data_set %}
+                    <tr>
+                        <th scope="row">{{ data.record.pk }}</th>
+                        <td>{{ data.record.scrap_unit.title }}</td>
+                        <td>{{ data.record.scrap_author.username }}</td>
+                        <td>Table</td>
+                        <td>{{ data.record.date_created }}</td>
+                        <td>
+                            <a class="card-link" data-toggle="collapse" href="#{{ data.record.pk }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Reason
+                            </a>
+                        </td>
+                        <td>
+                            <form action="{% url 'remove_scrap_record' %}" method="POST">{% csrf_token %}
+                                <button class="float-right btn btn-danger btn-sm" type="submit" name="remove" value="{{ data.record.pk }}">X</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="7">
+                            <div class="collapse" id="{{ data.record.pk }}">
+                                <div class="card card-body">
+                                    <h5 class="card-title">Reason</h5>
+                                    {% for faq in data.scrap_record_to_question %}
+                                        {{ faq.question.question_title }} - {{ faq.answer }} <br>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+            <ul class="list-group">
+                    {% if counter_set|length != 0 %}
+                        <li class="list-group-item active"><p class="lead">On scrap locations units: {{ total_value }}</p></li>
+                        {% for data in counter_set %}
+                            <li class="list-group-item">{{ data.unit_title }}: <b>{{ data.unit_count }}</b></li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item active"><p class="lead">Scrap locations are empty.</p></li> 
+                    {% endif %}
+              </ul>
         </div>
     </div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">RecID</th>
-                <th scope="col">Unit</th>
-                <th scope="col">Author</th>
-                <th scope="col">Location</th>
-                <th scope="col">Date Created</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for data in data_set %}
-            <tr>
-                <th scope="row">{{ data.record.pk }}</th>
-                <td>{{ data.record.scrap_unit.title }}</td>
-                <td>{{ data.record.scrap_author.username }}</td>
-                <td>Table</td>
-                <td>{{ data.record.date_created }}</td>
-                <td>
-                    <a class="card-link" data-toggle="collapse" href="#{{ data.record.pk }}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        Reason
-                    </a>
-                </td>
-                <td>
-                    <a class="card-link">
-                        Remove
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="7">
-                    <div class="collapse" id="{{ data.record.pk }}">
-                        <div class="card card-body">
-                            <h5 class="card-title">Reason</h5>
-                            {% for faq in data.scrap_record_to_question %}
-                                {{ faq.question.question_title }} - {{ faq.answer }} <br>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+</div>
 {% endblock content %}
