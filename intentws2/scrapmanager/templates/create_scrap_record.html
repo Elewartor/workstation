@@ -1,0 +1,48 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="container" style="padding-top: 70px;">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                    <h5 class="card-header">Scrap Record</h5>
+                <div class="card-body">
+                    <img src="{{ unit.image_url }}" class="card-img-top" alt="{{ unit.title }}">
+                    <h5 class="card-title">{{ unit.title }}</h5>
+                    <hr>
+                    <p class="card-text"><b>Category:</b> {{ unit.category }}</p>
+                    <p class="card-text"><b>UPC:</b> {{ unit.upc }}</p>
+                    <p class="card-text"><b>P/N:</b> {{ unit.part_number }}</p>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <h5 class="card-header">Reason</h5>
+                <div class="card-body">
+                    <form action="{% url 'create_scrap_record' %}" method="POST" >{% csrf_token %}
+                        {% for question in questions %}
+                            <label for="{{ question.questions.pk }}">{{ question.questions.question_title }}</label>
+                            <div class="form-group" id="{{ question.questions.pk }}">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="{{ question.questions.pk }}" value="True">
+                                    <label class="form-check-label">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="{{ question.questions.pk }}" value="False">
+                                    <label class="form-check-label">No</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" checked name="{{ question.questions.pk }}" value="Unknown">
+                                    <label class="form-check-label">I don`t know</label>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <button class="btn" type="submit" name="unit_pk" value="{{ unit.pk }}"> Create </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

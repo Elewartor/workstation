@@ -1,6 +1,6 @@
 from django import forms
 
-from workstation.models import Unit
+from workstation.models import Unit, Category
 
 class UnitCreateForm(forms.ModelForm):
 
@@ -25,3 +25,9 @@ class UnitEditForm(forms.ModelForm):
         if commit:
             unit.save()
         return unit
+
+class CategoryCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = Category
+        fields = ('title',)
